@@ -52,6 +52,10 @@ Sebelum membuat model, perlu dipahami variabel-variabel yang tersedia dan dapat 
 
 ---
 
+Sebelum membuat model kompleks, analisa sederhana dapat dilakukan untuk mengetahui apakah terdapat pola yang sudah tergambarkan di awal.
+
+<img width="601" height="554" alt="image" src="https://github.com/user-attachments/assets/1c3e6560-0b7f-493b-800d-09b8a9d14cec" />
+
 ## 3. Data Preparation
 
 Tahapan persiapan data meliputi:
