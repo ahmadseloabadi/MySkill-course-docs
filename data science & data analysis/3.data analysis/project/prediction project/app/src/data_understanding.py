@@ -53,6 +53,75 @@ def explore_data(df, groupby_list, paid_status_list):
             )
             st.pyplot(fig)
 
+def avg_balance_product(df,profile_list):
+    df['Total Balance'] = df['Balance Q1']+df['Balance Q2']+df['Balance Q3']+df['Balance Q4']
+    df['Avg Balance'] = (df['Total Balance'])/4        
+    df['Avg Product'] = (df['NumOfProducts Q1']+df['NumOfProducts Q2']+df['NumOfProducts Q3']+df['NumOfProducts Q4'])/4        
+
+    if 'Total Balance' in profile_list:
+        st.subheader('Total Balance')
+        df_total = pd.DataFrame(\
+                     df.groupby(by=["Unpaid Tagging"])["Total Balance"]\
+                     .mean()\
+                     .reset_index(name='Avg Annual Balance'))
+        st.dataframe(df_total,use_container_width=True)
+        fig, ax = plt.subplots(figsize=(12, 7))
+        df_total.plot(
+            x='Unpaid Tagging',
+            y=['Avg Annual Balance'],
+            kind="bar",
+            grid=True,
+            xlabel='Unpaid Tagging',
+            ylabel='Avg Annual Balance',
+            rot=90,
+            title='Avg Annual Balance',
+            ax=ax
+        )
+        st.pyplot(fig)
+
+    if 'Avg Balance' in profile_list:
+        st.subheader('Avg Balance')
+        data_avg = pd.DataFrame(\
+                     df.groupby(by=["Unpaid Tagging"])["Avg Balance"]\
+                     .mean()\
+                     .reset_index(name='Avg Quarterly Balance'))
+        st.dataframe(data_avg,use_container_width=True)
+        fig, ax = plt.subplots(figsize=(12, 7))
+        data_avg.plot(
+            x='Unpaid Tagging',
+            y=['Avg Quarterly Balance'],
+            kind="bar",
+            grid=True,
+            xlabel='Unpaid Tagging',
+            ylabel='Avg Quarterly Balance',
+            rot=90,
+            title='Avg Quarterly Balance',
+            ax=ax
+        )
+        st.pyplot(fig)
+
+    if 'Avg Product' in profile_list:
+        st.subheader('Avg Product')
+        data_product = pd.DataFrame(\
+                     df.groupby(by=["Unpaid Tagging"])["Avg Product"]\
+                     .mean()\
+                     .reset_index(name='Avg Product Owned'))
+        st.dataframe(data_product,use_container_width=True)
+        fig, ax = plt.subplots(figsize=(12, 7))
+        data_product.plot(
+            x='Unpaid Tagging',
+            y=['Avg Product Owned'],
+            kind="bar",
+            grid=True,
+            xlabel='Unpaid Tagging',
+            ylabel='Avg Product Owned',
+            rot=90,
+            title='Avg Product Owned',
+            ax=ax
+        )
+        st.pyplot(fig)
+
+
 
 
 

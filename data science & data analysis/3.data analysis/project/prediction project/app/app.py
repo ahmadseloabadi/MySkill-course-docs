@@ -1,14 +1,29 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-from src import load_data,explore_data
+from src import load_data,explore_data,avg_balance_product
 
 with st.sidebar :
-    selected = option_menu('sentimen analisis',['business understanding','data understanding','data preparation','modelling',"evaluation"])
-if(selected == 'business understanding') :
+    selected = option_menu('sentimen analisis',['home','business understanding','data understanding','data preparation','modelling',"evaluation"])
+
+if(selected == 'home') :
+
+    st.title('Credit Card Prediction for FinanKu from Myskill')
+
+    st.write('Ahmad Selo Abadi - Data Analyst and data scientist enthusiast')
+
     st.subheader('Latar Belakang')
     st.write("FinanKu adalah sebuah startup fintech imajiner yang memberikan fasilitas simpanan dan pinjaman kepada nasabahnya. Jasa yang mereka tawarkan di antaranya tabungan, deposito, pinjaman tanpa agunan, kartu kredit, dan pembiayaan kendaraan mobil dan motor.")
     st.write("Saat ini, FinanKu memiliki pelanggan sebanyak ~20.000 yang tersebar di 3 kota besar di Indonesia; Jakarta, Bandung, dan Surabaya. Angka ini cukup besar mengingat FinanKu baru berjalan selama 1,5 tahun, di mana diekspektasikan dalam 3 tahun ke depan pelanggan mereka akan berjumlah 300.000+.")
     st.write("Perkembangan yang cepat ini membuat para stakeholders di divisi kredit FinanKu semakin berhati-hati dalam menyalurkan kredit yang dimiliki agar tidak mengalami gagal bayar, khususnya dari lini Kartu Kredit yang memiliki fitur instant approval dalam 1 menit.")
+
+    st.subheader('**PROBLEM STATEMENT**')
+    st.write("Kekhawatiran adanya keterlambatan pembayaran kartu kredit pada FinanKu yang akan merugikan bisnis. Sehingga orang-orang yang memiliki potensi untuk mengalami keterlambatan bayar bisa diprediksi lebih cepat untuk menentukan strategi yang sesuai dalam menghadapi kondisi di masa mendatang.")
+    
+    st.subheader('**OBJECTIVE**')
+    st.write("Membuat sebuah model yang dapat memprediksi setidaknya 60% dari pelanggan yang akan mengalami telat bayar kartu kredit [Accuracy & Recall di atas 60%]")
+
+
+if(selected == 'business understanding') :
 
     st.subheader("kesimpulan")
     st.write("dari latar belakang kita dapat menarik beberapa kesimpulan yaitu:")
@@ -17,7 +32,7 @@ if(selected == 'business understanding') :
     st.write("**Tujuan Bisnis**")
     st.write("Mengetahui lebih awal nasabah yang berpotensi gagal bayar.") 
     st.write("**Tujuan Analisis**")
-    st.write("Membangun **model prediksi gagal bayar** untuk fasilitas **Kartu Kredit FinanKu**.model yang dapat memprediksi setidaknya 60% dari pelanggan yang akan mengalami telat bayar kartu kredit [Accuracy & Recall di atas 60%")
+    st.write("Membangun **model prediksi gagal bayar** untuk fasilitas **Kartu Kredit FinanKu**.")
 
     st.subheader("experiment")
     st.markdown('''
@@ -60,6 +75,12 @@ if(selected == 'data understanding') :
 
     if st.button("tampilkan hasil"):
         explore_data(df_all,groub,paid_status)
+
+    st.subheader("check profile nasabah")
+    profile = st.multiselect( "Pilih profile yang akan dilihat:",
+            ['Total Balance', 'Avg Balance','Avg Product'])
+    if st.button("tampilkan profile"):
+        avg_balance_product(df_all,profile)
 
 if(selected == 'data preparation') :
     st.write('ini adalah bagian data preparation')
