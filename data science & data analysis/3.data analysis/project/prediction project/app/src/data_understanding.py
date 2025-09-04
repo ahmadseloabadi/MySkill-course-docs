@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+import matplotlib.pyplot as plt
 
 def load_data(path_all,path_val):
     df_all=pd.read_csv(path_all)
@@ -32,17 +33,25 @@ def explore_data(df, groupby_list, paid_status_list):
             st.markdown(f"### 📊 Distribusi berdasarkan **{groub}** | Status bayar: **{status}**")
             st.dataframe(explore_result,use_container_width=True)
 
-            filtered_df.plot(x='Age',
-            y=['Distribution by Age'],
-            kind='bar',
-            grid = True,
-            xlabel = 'Age',
-            ylabel = '# People',
-            figsize=(12,7),
-            rot = 0,
-            title = 'Cust. Distribution by Age',
-            table = False,
-            secondary_y = False)
+            explore_result.sort_values(\
+                  by=[groub], \
+                  ascending=True,\
+                  inplace=True)
+
+            # ---- Tambahkan plot bar ----
+            fig, ax = plt.subplots(figsize=(12, 7))
+            explore_result.plot(
+                x=groub,
+                y=[col_name],
+                kind="bar",
+                grid=True,
+                xlabel=groub,
+                ylabel="# People",
+                rot=0,
+                title=f"Cust. Distribution by {groub} ({status})",
+                ax=ax
+            )
+            st.pyplot(fig)
 
 
 
